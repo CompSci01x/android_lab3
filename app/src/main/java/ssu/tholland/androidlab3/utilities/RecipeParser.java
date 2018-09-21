@@ -3,6 +3,7 @@ package ssu.tholland.androidlab3.utilities;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 
 import ssu.tholland.androidlab3.models.RecipeModel;
 
@@ -10,16 +11,23 @@ public class RecipeParser {
 
     public static RecipeModel recipeFromJson(String jsonString) {
 
-        RecipeModel model = null;
+        RecipeModel model = new RecipeModel();
 
         try {
             JSONObject response = new JSONObject(jsonString);
             JSONArray matches = response.getJSONArray("matches");
             JSONObject recipe = matches.getJSONObject(0);
+            JSONArray recipeImgUrl = recipe.getJSONArray("smallImageUrls");
+            String recipeName = recipe.getString("recipeName");
 
-            // finish deserializing and creating a model
+            model.setRecipeImageUrl(recipeImgUrl.getString(0));
+            model.setRecipeName(recipeName);
+
+            return model;
+
 
         } catch (JSONException ex) {
+
             // do something useful with exception
         }
 

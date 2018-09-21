@@ -20,12 +20,46 @@ public class RecipeSearchAsyncTask extends AsyncTask<String, Void, RecipeModel> 
 
     @Override
     protected RecipeModel doInBackground(String... params) {
+        String searchParams = params[0];
+        OkHttpClient client = new OkHttpClient();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(baseApiUrl).newBuilder();
+        urlBuilder.addQueryParameter("_app_key", apiKey);
+        urlBuilder.addQueryParameter("_app_id", appId);
+        urlBuilder.addQueryParameter("q", searchParams);
+        String url = urlBuilder.build().toString();
+        Request request = new Request.Builder().url(url).build();
+        Response response = null;
 
+        try {
+            response = client.newCall(request).execute();
+            if (response != null) {
+                return RecipeParser.recipeFromJson(response.body().string());
+            }
+        } catch (IOException e)
+        {
+
+        }
         return null;
     }
 
 
-    public interface RecipeCallbackListener {
-        void onRecipeCallback(RecipeModel model);
+
+        public interface RecipeCallbackListener
+        {
+            void onRecipeCallback(RecipeModel model);
+        }
+
+
+            private RecipeCallbackListener listener;
+
+            public void setRecipeCallbackListener(RecipeCallbackListener listener)
+            {
+                this.listener = listener;
+            }
+
+    @Override
+    protected void onPostExecute(RecipeModel recipeModel) {
+        super.onPostExecute(recipeModel);
+        listener.onRecipeCallback(recipeModel);
     }
 }
