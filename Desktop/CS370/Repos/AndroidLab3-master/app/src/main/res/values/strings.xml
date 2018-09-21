@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AndroidLab3</string>
+    <string name="recipe_search_hint">ingredient</string>
+    <string name="parse_button_text">Parse a Recipe!</string>
+    <string name="search_edit_hint">Search terms here</string>
+    <string name="search_button_text">Find Recipes!</string>
+    <string name="img_thumbnail_desc">recipe small image</string>
+</resources>
