@@ -3,8 +3,11 @@ package ssu.tholland.androidlab3.utilities;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 
 import ssu.tholland.androidlab3.models.RecipeModel;
+
+import static ssu.tholland.androidlab3.models.RecipeModel.getrecipeName;
 
 public class RecipeParser {
 
@@ -16,6 +19,19 @@ public class RecipeParser {
             JSONObject response = new JSONObject(jsonString);
             JSONArray matches = response.getJSONArray("matches");
             JSONObject recipe = matches.getJSONObject(0);
+
+            JSONArray url = response.getJSONArray("smallImageUrls");
+            String smallurl = url.getString(0);
+            JSONArray names = response.getJSONArray("recipeName");
+            String name = names.getString(0);
+            model = new RecipeModel();
+            model.setrecipeImageUrl(smallurl);
+            model.setrecipeName(name);
+
+          // JSONObject smallImageUrl = matches.getJSONObject();
+
+
+
 
             // finish deserializing and creating a model
 
