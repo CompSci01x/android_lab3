@@ -16,6 +16,7 @@ public class SearchActivity extends AppCompatActivity {
     private Button searchButton;
     private TextView recipeName;
     private ImageView recipeImage;
+    private RecipeSearchAsyncTask.RecipeCallbackListener recipeCallbackListener;
 
     private RecipeSearchAsyncTask.RecipeCallbackListener listener;
 
@@ -27,7 +28,20 @@ public class SearchActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                searchEditText = findViewById(R.id.search_edit_text);
+                searchButton = findViewById(R.id.search_button);
+                recipeName = findViewById(R.id.recipe_name);
+                recipeImage = findViewById(R.id.recipe_image);
 
+                recipeCallbackListener = new RecipeCallbackListener() {
+                    @Override
+                    public void onRecipeCallback ( RecipeModel recipeModel){
+                        recipeName.setText(recipeModel.getRecipeName());
+                    }
+                };
+                RecipeSearchAsyncTask task = new RecipeSearchAsyncTask();
+                task.setRecipeCallbackListener(recipeCallbackListener);
+                task.execute(searchEditText.getText().toString());
             }
         });
     }
