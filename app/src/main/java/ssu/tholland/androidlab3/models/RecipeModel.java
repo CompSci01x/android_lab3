@@ -19,16 +19,17 @@ public class RecipeModel
     }
 
 
+    public String getRecipeImageUrl()
+    {
+        return recipeImageUrl;
+    }
+
     public void setRecipeImageUrl(String recipeImageUrl)
     {
         this.recipeImageUrl = recipeImageUrl;
 
     }
 
-    public String getRecipeImageUrl()
-    {
-        return recipeImageUrl;
-    }
 
 
 

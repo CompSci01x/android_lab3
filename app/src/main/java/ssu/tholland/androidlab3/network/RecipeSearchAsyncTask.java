@@ -31,8 +31,8 @@ public class RecipeSearchAsyncTask extends AsyncTask<String, Void, RecipeModel> 
         String searchParams = params[0];
         OkHttpClient client = new OkHttpClient();
         HttpUrl.Builder urlBuilder = HttpUrl.parse(baseApiUrl).newBuilder();
-        urlBuilder.addQueryParameter( "app_key" , apiKey);
-        urlBuilder.addQueryParameter("app_id", appId);
+        urlBuilder.addQueryParameter( "_app_key" , apiKey);
+        urlBuilder.addQueryParameter("_app_id", appId);
         urlBuilder.addQueryParameter("q", searchParams);
         String url = urlBuilder.build().toString();
         Request request = new Request.Builder().url(url).build();
