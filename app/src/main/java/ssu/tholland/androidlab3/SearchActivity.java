@@ -10,14 +10,19 @@ import android.widget.TextView;
 
 import ssu.tholland.androidlab3.network.RecipeSearchAsyncTask;
 
+//added this
+import ssu.tholland.androidlab3.models.RecipeModel;
+
 public class SearchActivity extends AppCompatActivity {
 
-    private EditText searchEditText;
-    private Button searchButton;
-    private TextView recipeName;
-    private ImageView recipeImage;
+    private EditText searchEditText =findViewById(R.id.search_edit_text);
+    private Button searchButton = findViewById(R.id.search_button);
+    private TextView recipeName = findViewById(R.id.recipe_name);
+    private ImageView recipeImage = findViewById(R.id.recipe_image);
 
     private RecipeSearchAsyncTask.RecipeCallbackListener listener;
+
+    private RecipeSearchAsyncTask.RecipeCallbackListener recipeCallbackListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +32,18 @@ public class SearchActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                recipeCallbackListener = new RecipeSearchAsyncTask.RecipeCallbackListener() {
+                    @Override
+                    public void onRecipeCallback(RecipeModel recipeModel) {
+                        recipeName.setText(recipeModel.getRecipeName());
+                        //i'm not sure if this is in the right place
+                        listener.onRecipeCallback(recipeModel);
+                    }
+                };
 
+                RecipeSearchAsyncTask task = new RecipeSearchAsyncTask();
+                task.setRecipeCallbackListener(recipeCallbackListener);
+                task.execute(searchEditText.getText().toString());
             }
         });
     }

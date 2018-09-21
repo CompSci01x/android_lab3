@@ -1,8 +1,11 @@
 package ssu.tholland.androidlab3.utilities;
 
+import android.util.JsonToken;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import ssu.tholland.androidlab3.models.RecipeModel;
 
@@ -16,8 +19,12 @@ public class RecipeParser {
             JSONObject response = new JSONObject(jsonString);
             JSONArray matches = response.getJSONArray("matches");
             JSONObject recipe = matches.getJSONObject(0);
+            JSONTokener recipeName = recipe.g
+
+            model.setRecipeName(recipe);
 
             // finish deserializing and creating a model
+
 
         } catch (JSONException ex) {
             // do something useful with exception
