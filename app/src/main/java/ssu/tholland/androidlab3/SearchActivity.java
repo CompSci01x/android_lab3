@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import ssu.tholland.androidlab3.models.RecipeModel;
 import ssu.tholland.androidlab3.network.RecipeSearchAsyncTask;
 
 public class SearchActivity extends AppCompatActivity {
@@ -17,17 +18,34 @@ public class SearchActivity extends AppCompatActivity {
     private TextView recipeName;
     private ImageView recipeImage;
 
-    private RecipeSearchAsyncTask.RecipeCallbackListener listener;
+    private RecipeSearchAsyncTask.RecipeCallbackListener recipeCallbackListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        //Assign Variables to Views
+        searchEditText = findViewById(R.id.search_edit_text);
+        searchButton = findViewById(R.id.search_edit_text);
+        recipeName = findViewById(R.id.recipe_image);
+        recipeImage = findViewById(R.id.recipe_image);
+
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Set listener so recipe is displayed from the model
+                recipeCallbackListener = new RecipeSearchAsyncTask.RecipeCallbackListener() {
+                    @Override
+                    public void onRecipeCallback(RecipeModel recipeModel) {
+                        recipeName.setText(recipeModel.getRecipeName());
+                    }
+                };
 
+                //
+                RecipeSearchAsyncTask task = new RecipeSearchAsyncTask();
+                task.setRecipeCallbackListener(recipeCallbackListener);
+                task.execute(searchEditText.getText().toString());
             }
         });
     }

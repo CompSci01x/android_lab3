@@ -17,10 +17,17 @@ public class RecipeSearchAsyncTask extends AsyncTask<String, Void, RecipeModel> 
     private final String apiKey = "ec3e34e0bb6801670dbd3dbd02ce7608";
     private final String appId = "4911b643";
 
+    private RecipeCallbackListener listener;
+
+    public void setRecipeCallbackListener(RecipeCallbackListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     protected RecipeModel doInBackground(String... params) {
-
+        String searchParams = params[0];
+        OkHttpClient client = new OkHttpClient();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(baseApiUrl).newBuilder();
         return null;
     }
 
