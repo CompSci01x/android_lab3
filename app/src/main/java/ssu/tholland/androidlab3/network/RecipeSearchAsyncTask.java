@@ -17,9 +17,40 @@ public class RecipeSearchAsyncTask extends AsyncTask<String, Void, RecipeModel> 
     private final String apiKey = "ec3e34e0bb6801670dbd3dbd02ce7608";
     private final String appId = "4911b643";
 
+    private RecipeCallbackListener recipeCallbackListener = new RecipeCallbackListener() {
+        @Override
+        public void onRecipeCallback(RecipeModel model) {
+
+        }
+    };
+
+    public void setRecipeCallbackListener(RecipeCallbackListener listener){
+        this.recipeCallbackListener = listener;
+    }
+
 
     @Override
     protected RecipeModel doInBackground(String... params) {
+
+        String searchParams = params[0];
+        OkHttpClient client = new OkHttpClient();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(baseApiUrl).newBuilder();
+        urlBuilder.addQueryParameter("_app_key", apiKey);
+        urlBuilder.addQueryParameter("_app_id", appId);
+        urlBuilder.addQueryParameter("q", searchParams);
+        String url = urlBuilder.build().toString();
+        Request request = new Request.Builder().url(url).build();
+        Response response = null;
+
+        try {
+            // response holds server's answer
+            response = client.newCall(request).execute();
+            if(response != null) {
+                return RecipeParser.recipeFromJson(response.body().string());
+            }
+        } catch (IOException e){
+            // do something with
+        }
 
         return null;
     }
@@ -28,4 +59,11 @@ public class RecipeSearchAsyncTask extends AsyncTask<String, Void, RecipeModel> 
     public interface RecipeCallbackListener {
         void onRecipeCallback(RecipeModel model);
     }
+
+    @Override
+    protected void onPostExecute(RecipeModel recipeModel){
+        recipeCallbackListener.onRecipeCallback(recipeModel);
+    }
+
+
 }
