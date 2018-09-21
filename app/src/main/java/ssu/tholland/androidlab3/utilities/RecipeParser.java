@@ -17,10 +17,24 @@ public class RecipeParser {
             JSONArray matches = response.getJSONArray("matches");
             JSONObject recipe = matches.getJSONObject(0);
 
+            String recipeName = recipe.getString("recipeName");
+            JSONArray smallImageUrls = recipe.getJSONArray("smallImageUrls");
+
+            String recipeImageUrl = smallImageUrls.getString(0);
+
+
+            model = new RecipeModel();
+            model.setRecipeImageUrl(recipeImageUrl);
+            model.setRecipeName(recipeName);
+
+            return model;
+
             // finish deserializing and creating a model
+
 
         } catch (JSONException ex) {
             // do something useful with exception
+
         }
 
         return null;
