@@ -36,7 +36,9 @@ public class SearchActivity extends AppCompatActivity {
                     @Override
                     public void onRecipeCallback(RecipeModel recipeModel) {
                         recipeName.setText(recipeModel.getRecipeName());
+                        //recipeImage.setImage(recipeModel.getRecipeImageUrl() );
                         //i'm not sure if this is in the right place
+
                         listener.onRecipeCallback(recipeModel);
                     }
                 };
