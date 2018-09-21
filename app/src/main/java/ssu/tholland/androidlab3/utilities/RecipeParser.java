@@ -10,7 +10,7 @@ public class RecipeParser {
 
     public static RecipeModel recipeFromJson(String jsonString) {
 
-        RecipeModel model = null;
+        RecipeModel model = new RecipeModel();
 
         try {
             JSONObject response = new JSONObject(jsonString);
@@ -18,6 +18,14 @@ public class RecipeParser {
             JSONObject recipe = matches.getJSONObject(0);
 
             // finish deserializing and creating a model
+            String recipe_id = recipe.getString("id");
+            String recipe_name = recipe.getString("recipeName");
+            JSONArray small_imageURL = recipe.getJSONArray("smallImageUrls");
+            String url = small_imageURL.getString(0);
+
+            model.setRecipeName(recipe_name);
+            model.setRecipeImageUrl(url);
+            return model;
 
         } catch (JSONException ex) {
             // do something useful with exception
@@ -25,6 +33,7 @@ public class RecipeParser {
 
         return null;
     }
+
 
 }
 
@@ -92,5 +101,4 @@ public class RecipeParser {
   "totalMatchCount": 247614,
   "attribution": { ... }
 }
-
 */
