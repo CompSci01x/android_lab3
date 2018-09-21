@@ -1,24 +1,49 @@
 package ssu.tholland.androidlab3.utilities;
 
+import android.util.JsonToken;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
+import org.json.JSONTokener;
 
 import ssu.tholland.androidlab3.models.RecipeModel;
 
 public class RecipeParser {
 
+
+
     public static RecipeModel recipeFromJson(String jsonString) {
 
-        RecipeModel model = null;
+        RecipeModel model = new RecipeModel();
 
         try {
             JSONObject response = new JSONObject(jsonString);
             JSONArray matches = response.getJSONArray("matches");
             JSONObject recipe = matches.getJSONObject(0);
+            //figure out JSON object methods and subclasses
+            //
+            model.setRecipeName(recipe.getString("recipeName"));
+
+
+
+            JSONArray smallUrls = recipe.getJSONArray("smallImageUrls");
+            model.setRecipeImageUrl(smallUrls.getString(0));
+
+            //model.setRecipeImageUrl(smallUrls.getString(0));
+
+            //model.setRecipeImageUrl(recipe.getString("smallImageUrls"));
+
+
+            //I don't thing these are correct:
+            //JSONArray urls = response.getJSONArray("smallImageUrls");
+            //JSONObject firstSmallUrl = urls.getJSONObject(0);
+
 
             // finish deserializing and creating a model
 
+            return model;
         } catch (JSONException ex) {
             // do something useful with exception
         }
