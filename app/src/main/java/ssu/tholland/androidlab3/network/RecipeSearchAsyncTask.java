@@ -46,8 +46,17 @@ public class RecipeSearchAsyncTask extends AsyncTask<String, Void, RecipeModel> 
     return null;
     }
 
+    @Override
+    protected void onPostExecute(RecipeModel recipeModel) {
+        listener.onRecipeCallback(recipeModel);
+    }
 
     public interface RecipeCallbackListener {
-        void onRecipeCallback(RecipeModel model);
+    void onRecipeCallback(RecipeModel model);
     }
+
+
+
+
+
 }
