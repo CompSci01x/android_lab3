@@ -25,15 +25,11 @@ public class RecipeModel {
     // class member variables
     private String recipeDescription;
     private String recipeImage;
-    private String recipeName;
 
     public String getrecipeName() {
         return recipeName;
     }
 
-    public void setrecipeName(String recipeName) {
-        this.recipeName = recipeName;
-    }
 
     public String getRecipeDescription() {
         return recipeDescription;

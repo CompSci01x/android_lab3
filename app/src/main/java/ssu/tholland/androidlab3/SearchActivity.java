@@ -18,9 +18,7 @@ public class SearchActivity extends AppCompatActivity {
     private TextView recipeName;
     private ImageView recipeImage;
     private RecipeSearchAsyncTask.RecipeCallbackListener recipeCallbackListener;
-
-    private RecipeSearchAsyncTask.RecipeCallbackListener recipeCallbackListener;
-    //private RecipeSearchAsyncTask.RecipeCallbackListener listener;
+    private RecipeSearchAsyncTask.RecipeCallbackListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
