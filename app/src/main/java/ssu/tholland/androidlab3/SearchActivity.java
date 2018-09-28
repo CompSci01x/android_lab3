@@ -15,12 +15,10 @@ import ssu.tholland.androidlab3.models.RecipeModel;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private EditText searchEditText =findViewById(R.id.search_edit_text);
-    private Button searchButton = findViewById(R.id.search_button);
-    private TextView recipeName = findViewById(R.id.recipe_name);
-    private ImageView recipeImage = findViewById(R.id.recipe_image);
-
-    private RecipeSearchAsyncTask.RecipeCallbackListener listener;
+    private EditText searchEditText;
+    private Button searchButton;
+    private TextView recipeName;
+    private ImageView recipeImage;
 
     private RecipeSearchAsyncTask.RecipeCallbackListener recipeCallbackListener;
 
@@ -28,6 +26,11 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        searchEditText = findViewById(R.id.search_edit_text);
+        searchButton = findViewById(R.id.search_button);
+        recipeName = findViewById(R.id.recipe_name);
+        recipeImage = findViewById(R.id.recipe_image);
+
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,9 +40,6 @@ public class SearchActivity extends AppCompatActivity {
                     public void onRecipeCallback(RecipeModel recipeModel) {
                         recipeName.setText(recipeModel.getRecipeName());
                         //recipeImage.setImage(recipeModel.getRecipeImageUrl() );
-                        //i'm not sure if this is in the right place
-
-                        listener.onRecipeCallback(recipeModel);
                     }
                 };
 
