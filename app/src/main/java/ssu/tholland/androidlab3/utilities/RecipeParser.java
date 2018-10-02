@@ -10,12 +10,21 @@ public class RecipeParser {
 
     public static RecipeModel recipeFromJson(String jsonString) {
 
-        RecipeModel model = null;
+        RecipeModel model = new RecipeModel();
 
         try {
             JSONObject response = new JSONObject(jsonString);
             JSONArray matches = response.getJSONArray("matches");
             JSONObject recipe = matches.getJSONObject(0);
+            String recipename = recipe.getString("recipeName");
+            JSONArray smallImageUrls = recipe.getJSONArray("smallImageUrls");
+            String url = smallImageUrls.getString(0);
+            
+            model.setRecipeName(recipename);
+            model.setRecipeImageUrl(url);
+
+            return model;
+            
 
             // finish deserializing and creating a model
 
@@ -27,7 +36,6 @@ public class RecipeParser {
     }
 
 }
-
 
 // ******** SAMPLE RESPONSE FROM YUMMLY API ***********
 // http://api.yummly.com/v1/api/recipes?_app_key=ec3e34e0bb6801670dbd3dbd02ce7608&_app_id=4911b643&q=eggs
