@@ -9,19 +9,23 @@ public class RecipeModel {
     private String recipeImageUrl;
 
 
-    public String getRecipeName() {
+    public String getRecipeName()
+    {
         return recipeName;
     }
 
-    public void setRecipeName(String recipeName) {
+    public void setRecipeName(String recipeName)
+    {
         this.recipeName = recipeName;
     }
 
-    public String getRecipeImageUrl() {
+    public String getRecipeImageUrl()
+    {
         return recipeImageUrl;
     }
 
-    public void setRecipeImageUrl(String recipeImageUrl) {
+    public void setRecipeImageUrl(String recipeImageUrl)
+    {
         this.recipeImageUrl = recipeImageUrl;
     }
 }

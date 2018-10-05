@@ -1,5 +1,7 @@
 package ssu.tholland.androidlab3;
 
+import android.net.sip.SipAudioCall;
+import android.net.sip.SipSession;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -33,17 +35,18 @@ public class SearchActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void onClick(View v) {
-                listener = new RecipeSearchAsyncTask.RecipeCallbackListener()
-                {
+            public void onClick(View v)
+            {
+                listener = new RecipeSearchAsyncTask.RecipeCallbackListener() {
                     @Override
-                    public void onRecipeCallback(RecipeModel recipeModel)
-                    {
+                    public void onRecipeCallback(RecipeModel model) {
                         recipeName.setText(recipeModel.getRecipeName());
                     }
                 };
                 RecipeSearchAsyncTask task = new RecipeSearchAsyncTask();
-                task.set
+                task.setListener(listener);
+                task.execute(searchEditText.getText().toString());
+
 
 
             }
