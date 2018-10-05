@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 
 import java.io.IOException;
 
+import javax.xml.transform.Result;
+
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -28,7 +30,29 @@ public class RecipeSearchAsyncTask extends AsyncTask<String, Void, RecipeModel> 
         String searchParams = params[0];
         OkHttpClient client = new OkHttpClient();
         HttpUrl.Builder urlBuilder = HttpUrl.parse(baseApiUrl).newBuilder();
+        urlBuilder.addQueryParameter("_app_key_", apiKey);
+        urlBuilder.addQueryParameter("_app_id", appId);
+        urlBuilder.addQueryParameter("q", searchParams);
+        String url = urlBuilder.build().toString();
+        Request request = new Request.Builder().url(url).build();
+        Response response = null;
+
+        try {
+            //response holds server's answer
+            response = client.newCall(request).execute();
+            if (response != null) {
+                return RecipeParser.recipeFromJson(response.body().string());
+            }
+        } catch (IOException e) {
+            //do something with exception
+            return null;
+        }
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(RecipeModel recipeModel) {
+        listener.onRecipeCallback(recipeModel);
     }
 
 

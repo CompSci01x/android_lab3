@@ -7,7 +7,12 @@ public class RecipeModel {
     private String recipeImageUrl;
 
     //getters and setters
-
+    public void setRecipeName(String name) {
+        recipeName = name;
+    }
+    public void setRecipeImageUrl(String url) {
+        recipeImageUrl = url;
+    }
 
     public String getRecipeName() {
         return recipeName;
