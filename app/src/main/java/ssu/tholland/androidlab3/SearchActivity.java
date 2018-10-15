@@ -20,7 +20,8 @@ public class SearchActivity extends AppCompatActivity {
     private TextView recipeName;
     private ImageView recipeImage;
 
-    private RecipeSearchAsyncTask.RecipeCallbackListener listener;
+
+    private RecipeSearchAsyncTask.RecipeCallbackListener recipeCallbackListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,19 +33,22 @@ public class SearchActivity extends AppCompatActivity {
         recipeName = findViewById(R.id.recipe_name);
         recipeImage = findViewById(R.id.recipe_image);
 
+
         searchButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                listener = new RecipeSearchAsyncTask.RecipeCallbackListener() {
+                recipeCallbackListener = new RecipeSearchAsyncTask.RecipeCallbackListener() {
                     @Override
-                    public void onRecipeCallback(RecipeModel model) {
+                    public void onRecipeCallback(RecipeModel recipeModel) {
                         recipeName.setText(recipeModel.getRecipeName());
+
+
                     }
                 };
                 RecipeSearchAsyncTask task = new RecipeSearchAsyncTask();
-                task.setListener(listener);
+                task.setRecipeCallbackListener(recipeCallbackListener);
                 task.execute(searchEditText.getText().toString());
 
 

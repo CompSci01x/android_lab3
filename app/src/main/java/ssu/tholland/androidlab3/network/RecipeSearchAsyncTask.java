@@ -18,10 +18,8 @@ public class RecipeSearchAsyncTask extends AsyncTask<String, Void, RecipeModel> 
     private final String appId = "4911b643";
     private RecipeCallbackListener listener;
 
-    public void setListener(RecipeCallbackListener listener)
-    {
-        this.listener = listener;
-    }
+
+
     @Override
     protected RecipeModel doInBackground(String... params) {
         String searchParams = params[0];
@@ -45,6 +43,7 @@ public class RecipeSearchAsyncTask extends AsyncTask<String, Void, RecipeModel> 
 
         catch (IOException e)
         {
+            // do something
 
         }
 
@@ -55,6 +54,18 @@ public class RecipeSearchAsyncTask extends AsyncTask<String, Void, RecipeModel> 
     }
 
 
+    public void setRecipeCallbackListener (RecipeCallbackListener listener)
+    {
+        this.listener = listener;
+    }
+
+    @Override
+    protected void onPostExecute( RecipeModel recipeModel)
+    {
+        super.onPostExecute(recipeModel);
+        listener.onRecipeCallback(recipeModel);
+    }
+
 
 
     public interface RecipeCallbackListener
@@ -64,10 +75,12 @@ public class RecipeSearchAsyncTask extends AsyncTask<String, Void, RecipeModel> 
 
 
 
-    private void setRecipeCallbackListener (RecipeCallbackListener listener)
-    {
-        this.listener = listener;
-    }
+
+
+
+
+
+
 
 
 
