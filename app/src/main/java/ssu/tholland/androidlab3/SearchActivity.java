@@ -14,13 +14,24 @@ import ssu.tholland.androidlab3.network.RecipeSearchAsyncTask;
 public class SearchActivity extends AppCompatActivity {
 
     private EditText searchEditText;
-    private Button searchButton;
-    private TextView recipeName;
-    private ImageView recipeImage;
 
-    private RecipeSearchAsyncTask.RecipeCallbackListener listener;
+    private Button searchButton;
 
     private RecipeSearchAsyncTask.RecipeCallbackListener recipeCallbackListener;
+    public void setRecipeCallbackListener(RecipeSearchAsyncTask.RecipeCallbackListener recipeCallbackListener) {
+        this.recipeCallbackListener = recipeCallbackListener;
+    }
+
+    private TextView recipeName;
+    public CharSequence getRecipeName() {
+        return (CharSequence) recipeName;
+    }
+    public void setRecipeName(TextView recipeName) {
+        this.recipeName = recipeName;
+    }
+
+    private ImageView recipeImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +40,7 @@ public class SearchActivity extends AppCompatActivity {
         searchEditText = (EditText)findViewById(R.id.search_edit_text);
         recipeName = (TextView)findViewById(R.id.recipe_name);
         recipeImage = (ImageView)findViewById(R.id.recipe_image);
+        searchButton = findViewById(R.id.search_button);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,8 +48,9 @@ public class SearchActivity extends AppCompatActivity {
                 recipeCallbackListener = new RecipeSearchAsyncTask.RecipeCallbackListener() {
                     @Override
                     public void onRecipeCallback(RecipeModel recipeModel) {
-                        recipeName.setText(recipeModel.getRecipeName());
+                        recipeName.setText(getRecipeName());
                     }
+
                 };
                 RecipeSearchAsyncTask task = new RecipeSearchAsyncTask();
                 task.setRecipeCallbackListener(recipeCallbackListener);

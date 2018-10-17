@@ -18,6 +18,21 @@ public class RecipeSearchAsyncTask extends AsyncTask<String, Void, RecipeModel> 
     private final String appId = "4911b643";
 
     @Override
+    protected void onPostExecute(RecipeModel recipeModel) {
+        super.onPostExecute(recipeModel);
+        listener.onRecipeCallback(recipeModel);
+    }
+    protected RecipeCallbackListener listener;
+    public void setListener(RecipeCallbackListener listener) {
+        this.listener = listener;
+    }
+    public RecipeCallbackListener getListener() {
+        return listener;
+    }
+
+
+
+    @Override
     protected RecipeModel doInBackground(String... params) {
         String searchParams = params[0];
         OkHttpClient client = new OkHttpClient();
@@ -40,11 +55,8 @@ public class RecipeSearchAsyncTask extends AsyncTask<String, Void, RecipeModel> 
         }
         return null;
     }
-    private RecipeCallbackListener listener;
 
-    public void setListener(RecipeCallbackListener listener) {
-        this.listener = listener;
-    }
+
 
     public interface RecipeCallbackListener {
         void onRecipeCallback(RecipeModel model);
