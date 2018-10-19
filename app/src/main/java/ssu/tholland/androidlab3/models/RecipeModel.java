@@ -17,4 +17,5 @@ public class RecipeModel {
     public String getRecipeName() {
         return recipeName;
     }
+    public String getRecipeImageUrl() {return recipeImageUrl;}
 }

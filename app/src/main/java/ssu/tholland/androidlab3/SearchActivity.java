@@ -27,8 +27,8 @@ public class SearchActivity extends AppCompatActivity {
 
         //Assign Variables to Views
         searchEditText = findViewById(R.id.search_edit_text);
-        searchButton = findViewById(R.id.search_edit_text);
-        recipeName = findViewById(R.id.recipe_image);
+        searchButton = findViewById(R.id.search_button);
+        recipeName = findViewById(R.id.recipe_name);
         recipeImage = findViewById(R.id.recipe_image);
 
         searchButton.setOnClickListener(new View.OnClickListener() {

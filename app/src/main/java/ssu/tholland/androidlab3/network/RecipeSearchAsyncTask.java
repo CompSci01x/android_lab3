@@ -29,10 +29,10 @@ public class RecipeSearchAsyncTask extends AsyncTask<String, Void, RecipeModel> 
     protected RecipeModel doInBackground(String... params) {
         String searchParams = params[0];
         OkHttpClient client = new OkHttpClient();
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(baseApiUrl).newBuilder();
-        urlBuilder.addQueryParameter("_app_key_", apiKey);
-        urlBuilder.addQueryParameter("_app_id", appId);
-        urlBuilder.addQueryParameter("q", searchParams);
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(baseApiUrl).newBuilder()
+            .addQueryParameter("_app_key", apiKey)
+            .addQueryParameter("_app_id", appId)
+            .addQueryParameter("q", searchParams);
         String url = urlBuilder.build().toString();
         Request request = new Request.Builder().url(url).build();
         Response response = null;
