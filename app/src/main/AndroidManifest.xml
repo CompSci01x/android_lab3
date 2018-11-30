@@ -3,6 +3,7 @@
     package="ssu.tholland.androidlab3">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    //Need Internet
 
     <application
         android:allowBackup="true"
