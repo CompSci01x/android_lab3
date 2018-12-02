@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import ssu.tholland.androidlab3.models.RecipeModel;
 import ssu.tholland.androidlab3.network.RecipeSearchAsyncTask;
 
@@ -39,6 +41,10 @@ public class SearchActivity extends AppCompatActivity {
                     @Override
                     public void onRecipeCallback(RecipeModel recipeModel) {
                         recipeName.setText(recipeModel.getRecipeName());
+                        Picasso.get()
+                                .load(recipeModel.getRecipeImageUrl())
+                                .resize(50, 50)
+                                .into(recipeImage);
                     }
                 };
 
