@@ -22,11 +22,17 @@ public class RecipeParser {
             String recipeName = recipe.getString("recipeName");
             String recipeImageUrl = recipe.getString("smallImageUrls");
 
+            return new RecipeModel.Builder()
+                    .setRecipeName(recipe.getString("recipeName"))
+                    .setRecipeImageUrl(recipe.getString("smallImageUrls"))
+                    .build();
+
+            /*
             model = new RecipeModel();
             model.setRecipeImageUrl(recipeImageUrl);
             model.setRecipeName(recipeName);
-
             return model;
+            */
 
         } catch (JSONException ex) {
             // do something useful with exception
