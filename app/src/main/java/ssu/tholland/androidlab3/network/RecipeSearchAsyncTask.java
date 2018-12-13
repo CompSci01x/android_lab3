@@ -16,12 +16,46 @@ public class RecipeSearchAsyncTask extends AsyncTask<String, Void, RecipeModel> 
     private final String baseApiUrl = "http://api.yummly.com/v1/api/recipes";
     private final String apiKey = "ec3e34e0bb6801670dbd3dbd02ce7608";
     private final String appId = "4911b643";
+    private RecipeCallbackListener listener;
+
+    public void setListener(RecipeCallbackListener listener) {
+        this.listener = listener;
+    }
 
 
     @Override
     protected RecipeModel doInBackground(String... params) {
+        String searchParams = params[0];
+        OkHttpClient client = new OkHttpClient();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(baseApiUrl).newBuilder();
+        urlBuilder.addQueryParameter("_app_key", apiKey);
+        urlBuilder.addQueryParameter("_app_id", appId);
+        urlBuilder.addQueryParameter("q", searchParams);
+        String url = urlBuilder.build().toString();
+        Request request = new Request.Builder().url(url).build();
+        Response response = null;
+
+        try {
+            response = client.newCall(request).execute();
+            if (response != null) {
+                return RecipeParser.recipeFromJson(response.body().string());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(RecipeModel recipeModel)
+    {
+        listener.onRecipeCallback(recipeModel);
+    }
+
+    public void setRecipeCallbackListener(RecipeCallbackListener listener)
+    {
+        this.listener = listener;
     }
 
 
