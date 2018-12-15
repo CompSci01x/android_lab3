@@ -48,7 +48,7 @@ public class SearchActivity extends AppCompatActivity {
                 recipeCallbackListener = new RecipeSearchAsyncTask.RecipeCallbackListener() {
                     @Override
                     public void onRecipeCallback(RecipeModel recipeModel) {
-                        recipeName.setText(getRecipeName());
+                        recipeName.setText(recipeModel.getRecipeName());
                     }
 
                 };
@@ -57,5 +57,8 @@ public class SearchActivity extends AppCompatActivity {
                 task.execute(searchEditText.getText().toString());
             }
         });
+        searchEditText = findViewById(R.id.search_edit_text);
+        recipeName = findViewById(R.id.recipe_name);
+        recipeImage = findViewById(R.id.recipe_image);
     }
 }

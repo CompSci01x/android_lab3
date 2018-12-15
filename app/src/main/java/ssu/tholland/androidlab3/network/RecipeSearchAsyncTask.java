@@ -23,7 +23,7 @@ public class RecipeSearchAsyncTask extends AsyncTask<String, Void, RecipeModel> 
         listener.onRecipeCallback(recipeModel);
     }
     protected RecipeCallbackListener listener;
-    public void setListener(RecipeCallbackListener listener) {
+    public void setRecipeCallbackListener(RecipeCallbackListener listener) {
         this.listener = listener;
     }
     public RecipeCallbackListener getListener() {
