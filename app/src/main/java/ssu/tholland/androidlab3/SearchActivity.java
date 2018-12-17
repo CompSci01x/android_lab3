@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import ssu.tholland.androidlab3.models.RecipeModel;
 import ssu.tholland.androidlab3.network.RecipeSearchAsyncTask;
 
@@ -26,7 +28,11 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        searchEditText = findViewById(R.id.search_edit_text);
+        recipeName = findViewById(R.id.recipe_name);
+        recipeImage = findViewById(R.id.recipe_image);
         searchButton = findViewById(R.id.search_button);
+
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,6 +40,9 @@ public class SearchActivity extends AppCompatActivity {
                     @Override
                     public void onRecipeCallback(RecipeModel recipeModel){
                         recipeName.setText(recipeModel.getRecipeName());
+                        Picasso.get().load(recipeModel.getRecipeImageUrl())
+                                .resize(20, 20)
+                                .into(recipeImage);
                     }
                 };
                 RecipeSearchAsyncTask task = new RecipeSearchAsyncTask();
@@ -41,8 +50,5 @@ public class SearchActivity extends AppCompatActivity {
                 task.execute(searchEditText.getText().toString());
             }
         });
-        searchEditText = findViewById(R.id.search_edit_text);
-        recipeName = findViewById(R.id.recipe_name);
-        recipeImage = findViewById(R.id.recipe_image);
     }
 }

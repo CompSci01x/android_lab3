@@ -35,7 +35,7 @@
             android:id="@+id/recipe_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:contentDescription="@string/img_thumbnail_desc" />
+            />
 
         <TextView
             android:id="@+id/recipe_name"
