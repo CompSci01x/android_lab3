@@ -10,25 +10,23 @@ public class RecipeParser {
 
     public static RecipeModel recipeFromJson(String jsonString) {
 
-        RecipeModel model = new RecipeModel();
+        //RecipeModel model = new RecipeModel();
 
         try {
             JSONObject response = new JSONObject(jsonString);
             JSONArray matches = response.getJSONArray("matches");
             JSONObject recipe = matches.getJSONObject(0);
 
-            // finish deserializing and creating a model
-            String recipe_id = recipe.getString("id");
-            String recipe_name = recipe.getString("recipeName");
-            JSONArray recipe_urllist = recipe.getJSONArray("smallImageurl");
-            String url = recipe_urllist.getString(0);
+            String recipeName = recipe.getString("recipeName");
+            JSONArray imageUrls = recipe.getJSONArray("smallImageUrls");
+            String imageUrl = imageUrls.getString(0);
+            //String recipeImageUrl = recipe.getString("smallImageUrls");
 
-            model.setRecipeName(recipe_id);
-            model.setRecipeImageUrl(url);
-            model.setRecipeName(recipe_name);
+            return new RecipeModel.Builder()
+                    .setRecipeName(recipe.getString("recipeName"))
+                    .setRecipeImageUrl(imageUrl)
+                    .build();
 
-            return model;
-            
         } catch (JSONException ex) {
             // do something useful with exception
         }
