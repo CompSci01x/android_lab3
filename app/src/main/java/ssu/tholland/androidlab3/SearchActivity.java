@@ -11,6 +11,8 @@ import android.widget.TextView;
 import ssu.tholland.androidlab3.models.RecipeModel;
 import ssu.tholland.androidlab3.network.RecipeSearchAsyncTask;
 
+import com.squareup.picasso.Picasso;
+
 public class SearchActivity extends AppCompatActivity {
 
     private EditText searchEditText;
@@ -37,6 +39,11 @@ public class SearchActivity extends AppCompatActivity {
                   @Override
                   public void onRecipeCallback(RecipeModel model) {
                       recipeName.setText(model.getRecipeName());
+                      Picasso.get()
+                              .load(model.getRecipeImageUrl())
+                              .resize(50, 50)
+                              .centerCrop()
+                              .into(recipeImage);
                   }
               };
               RecipeSearchAsyncTask task = new RecipeSearchAsyncTask();
