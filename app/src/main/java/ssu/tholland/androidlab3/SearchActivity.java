@@ -8,10 +8,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import ssu.tholland.androidlab3.models.RecipeModel;
 import ssu.tholland.androidlab3.network.RecipeSearchAsyncTask;
 
-import com.squareup.picasso.Picasso;
+
 
 public class SearchActivity extends AppCompatActivity {
 
